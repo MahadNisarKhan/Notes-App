@@ -1,0 +1,323 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f5f5f5;
+}
+
+.container {
+  display: flex;
+  height: 100vh;
+}
+
+.sidebar {
+  width: 260px;
+  background: #2c2c2c;
+  color: white;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow-y: auto; /* scrollbar appears only when notes overflow the sidebar */
+  flex-shrink: 0;
+}
+
+#notes {
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+}
+
+#search {
+  width: 100%;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: none;
+  font-size: 13px;
+  background: #3d3d3d;
+  color: white;
+  box-sizing: border-box;
+}
+
+#search::placeholder { 
+    color: #aaa; 
+}
+
+#search:focus { 
+    outline: 2px solid #4a90d9; 
+}
+
+#new {
+  width: 100%;
+  padding: 10px;
+  background: #4a90d9;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+#new:hover { 
+    background: #357abd; 
+}
+
+#new:active { 
+    background: #2c5d8a; 
+}
+
+.sidebar p {
+  color: #aaa;
+  font-size: 13px;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.note-item {
+  padding: 10px 12px;
+  background: #3d3d3d;
+  border-radius: 6px;
+  cursor: pointer;
+  border-left: 4px solid transparent;
+  transition: background 0.2s;
+}
+
+.note-item:hover { 
+    background: #4a4a4a; 
+}
+
+.note-item .active {
+  background: #1a3a5c;
+  border-left: 4px solid #4a90d9;
+}
+
+.note-item strong {
+  display: block;
+  font-size: 13px;
+  color: white;
+  margin-bottom: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.note-item p {
+  font-size: 11px;
+  color: #aaa;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.editor {
+  flex: 1;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  background: #ffffff;
+  min-width: 0;
+  overflow-y: auto; /* scrollbar appears if note content is too long */
+}
+
+.editor h2 {
+  font-size: 20px;
+  color: #333;
+}
+
+.editor input {
+  width: 100%;
+  padding: 12px;
+  font-size: 20px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  outline: none;
+  font-family: Arial, sans-serif;
+  box-sizing: border-box;
+}
+
+.editor input:focus { 
+    border-color: #4a90d9; 
+}
+
+.editor textarea {
+  width: 100%;
+  flex: 1;
+  padding: 12px;
+  font-size: 14px;
+  line-height: 1.7;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  resize: none;
+  outline: none;
+  font-family: Arial, sans-serif;
+  box-sizing: border-box;
+  min-height: 200px;
+}
+
+.editor textarea:focus { 
+    border-color: #4a90d9; 
+}
+
+.editor-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.editor button {
+  width: auto;
+  height: auto;
+  padding: 10px 24px;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+#saveUpdateBtn{
+    background: #4a90d9;
+}
+
+#saveUpdateBtn:hover { 
+    background: #357abd; 
+}
+
+#saveUpdateBtn:active { 
+    background: #2c5d8a; 
+}
+
+#deleteBtn{
+    background: #d9534f;
+}
+
+#deleteBtn:hover { 
+    background: #c9302c; 
+}
+
+#deleteBtn:active { 
+    background: #a92825; 
+}
+
+.sidebar::-webkit-scrollbar { 
+    width: 4px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: #555;
+  border-radius: 4px;
+}
+
+.sidebar select {
+  width: 100%;
+  padding: 8px;
+  padding-right: 28px; /* ← less space on the right */
+  border-radius: 6px;
+  border: none;
+  background: #3d3d3d;
+  color: white;
+  font-size: 13px;
+  cursor: pointer;
+  appearance: none; /* removes default arrow */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='white' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat; /* Stops the arrow from repeating/tiling across the whole element. */
+  background-position: right 10px center; /* ← arrow position */
+}
+
+.sidebar-toggle {
+  display: none;
+  background: #4a90d9;
+}
+
+.sidebar-close {
+  display: none;
+  width: 100%;
+  padding: 10px;
+  color: white;
+  background: #444;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* ── Tablet (≤ 768px) ── */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: row;
+    height: 100vh;
+  }
+
+  .sidebar-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px !important;
+    height: 36px;
+    padding: 0 !important;
+    font-size: 18px !important; /*!important = a special CSS keyword that forces a style to override all other rules */
+    border-radius: 6px !important;
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    z-index: 200;
+  }
+
+  .sidebar-close {
+    display: block;
+    width: fit-content !important;
+    padding: 4px 10px !important;
+    font-size: 16px !important;
+    background: #444 !important;
+    align-self: flex-end;
+  }
+
+  .sidebar-close:hover { 
+    background: #555 !important; 
+}
+
+  .sidebar {
+    position: fixed;
+    top: 0; left: 0;
+    height: 100%;
+    width: 260px;
+    z-index: 100;
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+    box-shadow: 2px 0 12px rgba(0,0,0,0.3);
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  .editor {
+    padding: 20px 16px;
+    padding-top: 64px; /* room for toggle button */
+    width: 100%;
+  }
+}
+
+/* ── Mobile (≤ 480px) ── */
+@media (max-width: 480px) {
+  .editor h2 { 
+    font-size: 17px; 
+}
+
+  .editor input { 
+    font-size: 15px; padding: 10px; 
+}
+
+  .editor textarea { 
+    font-size: 13px; min-height: 260px; 
+}
+
+  .editor-actions { 
+    flex-direction: column; 
+}
+
+  .editor button {
+    width: 100%;
+    padding: 12px;
+    font-size: 14px;
+  }
+}
