@@ -144,7 +144,7 @@ function Notes() {
                             <div
                                 key={note.id}
                                 className={note.id === selectedId ? 'note-item active' : 'note-item'}
-                                onClick={() => { clickNote(note); }} >
+                                onClick={() => { clickNote(note); setSidebarOpen(false); }} >
 
                                 <strong>{note.title}</strong>
                                 <p>{note.content.slice(0, 40)}...</p>  {/* will add ... at 40th character of the note content */}
