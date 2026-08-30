@@ -125,7 +125,7 @@ function Notes() {
                         placeholder="Search notes..."
                         value={search}
                         onChange={(e) => { setSearch(e.target.value); }} />
-                    <button id="new" onClick={clickNewNote}>+ New Note</button>
+                    <button id="new" onClick={() => {clickNewNote(); setSidebarOpen(false) }}>+ New Note</button>
 
                     <select id="sort"
                         value={sortOption}
