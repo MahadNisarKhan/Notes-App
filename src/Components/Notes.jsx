@@ -29,11 +29,10 @@ function Notes() {
         localStorage.setItem('my-notes', JSON.stringify(notes));
     }, [notes]);
 
-
-    useEffect(() => {  // focus title input when a note is selected
-        titleInputRef.current.focus();
-    }, [selectedId]); // selectedId is null at starting, so when a note is selected, then seletedId will change and this useEffect will run and focus the title input
-
+    
+    useEffect(() => { // focus title input when a note is selected
+    if (selectedId !== null) titleInputRef.current.focus(); // selectedId is null at starting (so, no focus on title input), so when a note is selected, then seletedId will change and this useEffect will run and focus the title input
+}, [selectedId]);
 
     // Click + -> clear form
     const clickNewNote = () => {
@@ -105,7 +104,7 @@ function Notes() {
             );
         })
         .sort((a, b) => {
-            if (sortOption === 'newest') return b.id - a.id;  // bigger id = newer
+            if (sortOption === 'newest') return b.id - a.id;  // bigger id = newer -> Date.now() returns milliseconds — so two notes would never be saved within the same millisecond
             if (sortOption === 'oldest') return a.id - b.id;  // smaller id = older
             if (sortOption === 'A-Z') return a.title.localeCompare(b.title); // alphabetical
             return 0;
@@ -125,7 +124,7 @@ function Notes() {
                         placeholder="Search notes..."
                         value={search}
                         onChange={(e) => { setSearch(e.target.value); }} />
-                    <button id="new" onClick={() => {clickNewNote(); setSidebarOpen(false) }}>+ New Note</button>
+                    <button id="new" onClick={() => { clickNewNote(); setSidebarOpen(false) }}>+ New Note</button>
 
                     <select id="sort"
                         value={sortOption}
@@ -147,7 +146,9 @@ function Notes() {
                                 onClick={() => { clickNote(note); setSidebarOpen(false); }} >
 
                                 <strong>{note.title}</strong>
-                                <p>{note.content.slice(0, 40)}...</p>  {/* will add ... at 40th character of the note content */}
+                                <p>{note.content.length > 40
+                                    ? note.content.slice(0, 40) + '...'
+                                    : note.content}</p>  {/* will add ... at 40th character of the note content */}
                             </div>
                         );
                     })}
